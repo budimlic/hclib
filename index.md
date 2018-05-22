@@ -1,9 +1,6 @@
 ---
-layout: default
+layout: home
 ---
-
-HClib
-=============================================
 
 HClib is a task-based parallel programming model that supports the finish-async,
 parallel-for, and future-promise parallel programming patterns through both C
