@@ -4,9 +4,16 @@ title: Installation
 permalink: /installation/
 ---
 
-
 Current build status of HCLib:
 [![Build Status](https://travis-ci.org/habanero-rice/hclib.svg?branch=master)](https://travis-ci.org/habanero-rice/hclib)
+
+Downloading
+---------------------------------------------
+
+HCLib source code can be checked out from GitHub here:
+[HCLib](https://github.com/habanero-rice/hclib)
+
+`git clone https://github.com/habanero-rice/hclib.git`
 
 Installation
 ---------------------------------------------
