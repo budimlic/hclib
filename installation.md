@@ -30,7 +30,7 @@ environment variable:
 
     INSTALL_PREFIX=/opt/local ./install.sh
 
-Likewise, if you would like to use different C/C++ compilers other than the
+Likewise, if you would like to use C/C++ compiler other than the
 system defaults, then you can specify them using the `CC` and `CXX` environment
 variables. For example, if you want to use the Intel compilers:
 
