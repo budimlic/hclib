@@ -29,6 +29,9 @@ Publications
  
 6. [A Scalable Locality-aware Adaptive Work-stealing Scheduler for Multi-core Task Parallelism](https://www.cs.rice.edu/~vs3/PDF/Guo-thesis-2010.pdf). Yi Guo. Ph.D. Thesis, August 2010.  
    Everything you ever wanted to know about using work-stealing for load balancing, which is implemented in HCLib as well.
+   
+7. [Hierarchical Place Trees: A Portable Abstraction for Task Parallelism and Date Movement](https://www.cs.rice.edu/~vs3/PDF/hpt.pdf). Yonghong Yan, Jisheng Zhao, Yi Guo, Vivek Sarkar. Proceedings of the 22nd Workshop on Languages and Compilers for Parallel Computing (LCPC), October 2009.  
+   Hierarchical Place Trees is an abstraction that HCLib uses to control _where_ the tasks should execute on a shared memory machine, in order to take advantage of memory reuse.
 
 Tutorials
 ===================================
