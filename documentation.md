@@ -7,6 +7,8 @@ permalink: /documentation/
 You can find the source code for HCLib at:
 [HCLib](https://github.com/habanero-rice/hclib)
 
+A Wiki dedicated to the Habanero project and its many subprojects (including HCLib) is located [here](https://wiki.rice.edu/confluence/display/HABANERO/Habanero+Extreme+Scale+Software+Research+Project).
+
 While there is no "official" HCLib manual yet, there are several papers that describe and discuss different aspects of Habanero-C in genereal, and HCLib in particular:
 
 Publications
