@@ -15,7 +15,33 @@ HCLib source code can be checked out from GitHub here:
 
 `git clone https://github.com/habanero-rice/hclib.git`
 
-Installation
+Dependencies
+---------------------------------------------
+
+* automake
+* gcc >= 4.8.4, or clang >= 3.5
+  (must support -std=c11 and -std=c++11)
+* libxml2 (with development headers)
+* jsmn JSON parser. You can get it from https://github.com/zserge/jsmn.git, install it using the instructions below, then set the environment variable JSMN_HOME to the installation folder.
+* OpenSHMEM library. Installation details are below.
+
+Installing jsmn
+---------------------------------------------
+* Get jsmn from https://github.com/zserge/jsmn.git
+* cd to the jsmn directory
+* run `CFLAGS=-fPIC make`
+* set the JSMN_HOME variable to the directory where jsmn is installed
+
+Installing OpenSHMEM
+---------------------------------------------
+There are several versions of OpenSHMEM that you can install on your system, depending on what kind of hardware you have and what do you want to use as the communication layer. You can find out a lot more about it at http://www.openshmem.org. Here we describe the simplest installation process of OpenSHMEM on top of OpenMPI.
+
+There is a handy script `oshmem.ompi.install.sh` in the scripts/ directory that will fetch and install OpenSHMEM on top of OpenMPI and all the dependencies. Make sure your `$(CC)` environment variable is pointing to a GCC 4.8.4 or later or CLang 3.5 or later when running this script.
+
+After you have succefully installed OpenSHMEM, set the environment variable OPENSHMEM_INSTALL to point to the installation directory of your OpenSHMEM installation, and add $OPENHMEM_INSTALL/bin to your PATH variable.
+
+
+Installing HCLib
 ---------------------------------------------
 
 HClib follows your standard bootstrap, configure, and make installation
@@ -42,30 +68,6 @@ installation by sourcing the `hclib_setup_env.sh` script. For example, assuming
 HClib was installed with `INSTALL_PREFIX=/opt/local`:
 
     source /opt/local/bin/hclib_setup_env.sh
-
-
-Dependencies
----------------------------------------------
-
-* automake
-* gcc >= 4.8.4, or clang >= 3.5
-  (must support -std=c11 and -std=c++11)
-* libxml2 (with development headers)
-* jsmn JSON parser. You can get it from https://github.com/zserge/jsmn.git, install it using the instructions below, then set the environment variable JSMN_HOME to the installation folder.
-* OpenSHMEM library. Installation details are below.
-
-Installing jsmn
----------------------------------------------
-* Get jsmn from https://github.com/zserge/jsmn.git
-* cd to the jsmn directory
-* run `CFLAGS=-fPIC make`
-* set the JSMN_HOME variable to the directory where jsmn is installed
-
-Installing OpenSHMEM
----------------------------------------------
-There are several versions of OpenSHMEM that you can install on your system, depending on what kind of hardware you have and what do you want to use as the communication layer. You can find out a lot more about it at http://www.openshmem.org. Here we describe the simplest installation process of OpenSHMEM on top of OpenMPI.
-
-There is a handy script `oshmem.ompi.install.sh` in the scripts/ directory that will fetch and install OpenSHMEM on top of OpenMPI and all the dependencies. Make sure your `$(CC)` environment variable is pointing to a GCC 4.8.4 or later or CLang 3.5 or later when running this script.
 
 
 Testing
