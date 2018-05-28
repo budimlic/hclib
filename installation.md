@@ -65,6 +65,8 @@ Installing OpenSHMEM
 ---------------------------------------------
 There are several versions of OpenSHMEM that you can install on your system, depending on what kind of hardware you have and what do you want to use as the communication layer. You can find out a lot more about it at http://www.openshmem.org. Here we describe the simplest installation process of OpenSHMEM on top of OpenMPI.
 
+There is a handy script `oshmem.ompi.install.sh` in the scripts/ directory that will fetch and install OpenSHMEM on top of OpenMPI and all the dependencies. Make sure your `$(CC)` environment variable is pointing to a GCC 4.8.4 or later or CLang 3.5 or later when running this script.
+
 
 Testing
 ---------------------------------------------
