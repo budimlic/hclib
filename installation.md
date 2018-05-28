@@ -51,6 +51,19 @@ Dependencies
 * gcc >= 4.8.4, or clang >= 3.5
   (must support -std=c11 and -std=c++11)
 * libxml2 (with development headers)
+* jsmn JSON parser. You can get it from https://github.com/zserge/jsmn.git, install it using the instructions below, then set the environment variable JSMN_HOME to the installation folder.
+* OpenSHMEM library. Installation details are below.
+
+Installing jsmn
+---------------------------------------------
+* Get jsmn from https://github.com/zserge/jsmn.git
+* cd to the jsmn directory
+* run `CFLAGS=-fPIC make`
+* set the JSMN_HOME variable to the directory where jsmn is installed
+
+Installing OpenSHMEM
+---------------------------------------------
+There are several versions of OpenSHMEM that you can install on your system, depending on what kind of hardware you have and what do you want to use as the communication layer. You can find out a lot more about it at http://www.openshmem.org. Here we describe the simplest installation process of OpenSHMEM on top of OpenMPI.
 
 
 Testing
