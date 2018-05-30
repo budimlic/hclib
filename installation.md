@@ -70,7 +70,7 @@ HClib was installed with `INSTALL_PREFIX=/opt/local`:
     source /opt/local/bin/hclib_setup_env.sh
 
 
-#### Installing OpenSHMEM module for HCLib
+### Installing OpenSHMEM module for HCLib
 
 If you want to use OpenSHMEM as the communication layer for a distributed execution of HCLib, you'll have to build the OpenSHMEM module for HCLib.
 
