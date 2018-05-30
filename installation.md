@@ -70,6 +70,21 @@ HClib was installed with `INSTALL_PREFIX=/opt/local`:
     source /opt/local/bin/hclib_setup_env.sh
 
 
+### Installing OpenSHMEM module for HCLib
+
+If you want to use OpenSHMEM as the communication layer for a distributed execution of HCLib, you'll have to build the OpenSHMEM module for HCLib.
+
+Assuming you have an OpenSHMEM installation by following the instructions above for OpenSHMEM on top of OpenMPI and have set the OPENSHMEM_INSTALL variable correctly, then all you need to do is:
+
+`cd modules/system; make`
+
+and 
+
+` cd modules/openshmem; make`
+
+After that, add `modules/system/lib` and `modules/openshmem/lib` to your `LD_LIBRARY_PATH` environment variable.
+
+
 Testing
 ---------------------------------------------
 
