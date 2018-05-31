@@ -14,6 +14,7 @@ HCLib source code can be checked out from GitHub here:
 [HCLib](https://github.com/habanero-rice/hclib)
 
 `git clone https://github.com/habanero-rice/hclib.git`
+`git checkout resource_workers`
 
 Dependencies
 ---------------------------------------------
