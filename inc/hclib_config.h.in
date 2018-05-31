@@ -1,5 +1,8 @@
 /* inc/hclib_config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Defined if C11 stdatomic.h is available. */
+#undef HAVE_C11_STDATOMIC
+
 /* Defined if C++11 std::is_trivially_copyable is supported. */
 #undef HAVE_CXX11_TRIVIAL_COPY_CHECK
 

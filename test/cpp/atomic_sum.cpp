@@ -37,7 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assert.h>
 #include <iostream>
 
-#include "hclib_cpp.h"
+#include "hclib.hpp"
 #include "hclib_atomic.h"
 
 #define N 1024

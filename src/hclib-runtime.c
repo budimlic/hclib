@@ -1,39 +1,17 @@
-/* Copyright (c) 2015, Rice University
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are
-met:
-
-1.  Redistributions of source code must retain the above copyright
-     notice, this list of conditions and the following disclaimer.
-2.  Redistributions in binary form must reproduce the above
-     copyright notice, this list of conditions and the following
-     disclaimer in the documentation and/or other materials provided
-     with the distribution.
-3.  Neither the name of Rice University
-     nor the names of its contributors may be used to endorse or
-     promote products derived from this software without specific
-     prior written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
- */
-
 /*
- * hclib-runtime.cpp
+ * Copyright 2017 Rice University
  *
- *      Author: Vivek Kumar (vivekk@rice.edu)
- *      Acknowledgments: https://wiki.rice.edu/confluence/display/HABANERO/People
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 #ifndef __USE_GNU
@@ -349,6 +327,7 @@ static void hclib_entrypoint(const char **module_dependencies,
         log_die("Cannot create ws_key for worker-specific data");
     }
 
+
     /*
      * set pthread's concurrency. Doesn't seem to do much on Linux, only
      * relevant when there are more pthreads than hardware cores to schedule
@@ -404,15 +383,11 @@ void hclib_signal_join(int nb_workers) {
 
 void hclib_join(int nb_workers) {
     // Join the workers
-#ifdef VERBOSE
-    fprintf(stderr, "hclib_join: nb_workers = %d\n", nb_workers);
-#endif
+    LOG_DEBUG("hclib_join: nb_workers = %d\n", nb_workers);
     for (int i = 1; i < nb_workers; i++) {
         pthread_join(hc_context->workers[i]->t, NULL);
     }
-#ifdef VERBOSE
-    fprintf(stderr, "hclib_join: finished\n");
-#endif
+    LOG_DEBUG("hclib_join: finished\n");
 }
 
 void hclib_cleanup() {
@@ -425,7 +400,8 @@ void hclib_cleanup() {
 
 static inline void check_in_finish(finish_t *finish) {
     if (finish) {
-        hc_atomic_inc(&(finish->counter));
+        // FIXME - does this need to be acquire, or can it be relaxed?
+        _hclib_atomic_inc_acquire(&finish->counter);
     }
 }
 
@@ -918,10 +894,8 @@ static void _finish_ctx_resume(void *arg) {
     LiteCtx *finishCtx = arg;
     ctx_swap(currentCtx, finishCtx, __func__);
 
-#ifdef VERBOSE
-    fprintf(stderr, "Should not have reached here, currentCtx=%p "
+    LOG_DEBUG("Should not have reached here, currentCtx=%p "
             "finishCtx=%p\n", currentCtx, finishCtx);
-#endif
     HASSERT(0);
 }
 
@@ -1195,7 +1169,6 @@ void hclib_start_finish() {
      * This would make it harder to detect when all tasks within the finish have
      * completed, or just the tasks launched so far.
      */
-    finish->counter = 1;
     finish->parent = ws->current_finish;
 #if HCLIB_LITECTX_STRATEGY
     finish->finish_deps = NULL;
@@ -1249,7 +1222,7 @@ void hclib_end_finish_nonblocking_helper(hclib_promise_t *event) {
     worker_stats[CURRENT_WS_INTERNAL->id].count_end_finishes_nonblocking++;
 #endif
 
-    HASSERT(current_finish->counter > 0);
+    HASSERT(_hclib_atomic_load_relaxed(&current_finish->counter) > 0);
 
     // Based on help_finish
     current_finish->finish_dep = &event->future;
