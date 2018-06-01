@@ -38,6 +38,6 @@ Publications
 Tutorials
 ===================================
 
-[HClib Tutorial Slides](./HClibTutorial.pdf)
+[HClib Tutorial Slides](../HClibTutoria.pdf)
 
 
